@@ -6,11 +6,14 @@ A Clojure library designed to ... well, that part is up to you.
 
 ```
 
+lein ring uberjar
+java -jar target/liberator-example-0.1.0-SNAPSHOT-standalone.jar  &
+
 $ lein repl
 
  (use 'ring.adapter.jetty)
  (use 'liberator-example.core)
- (def s (run-jetty handler {:port 3003}))
+ (def s (run-jetty handler))
 
 ```
 OR
