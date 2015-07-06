@@ -7,7 +7,7 @@
   :ring {:handler liberator-example.core/handler}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  ;; totp support
-                 [cylon "0.5.1"]
+                 [cylon "0.5.1" :exclusions [org.clojure/clojure]]
                  ;; restful
                  [liberator "0.10.0"]
                  ;; http server
