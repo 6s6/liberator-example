@@ -10,7 +10,7 @@
                  ;; totp support
                  [cylon "0.5.1" :exclusions [org.clojure/clojure]]
                  ;; restful
-                 [liberator "0.10.0"]
+                 [liberator "0.13"]
                  ;; http server
                  [ring/ring-core "1.3.2"]
                  [ring/ring-jetty-adapter "1.3.2"]
