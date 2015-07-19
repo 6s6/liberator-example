@@ -1,6 +1,7 @@
 (ns liberator-example.core
   (:require [liberator.core :refer (resource defresource)]
             [liberator.representation :refer (ring-response as-response)]
+            [liberator-example.data :refer (data)]
             [ring.middleware.params :refer (wrap-params)]
             [hiccup.core :refer (html)]
             [ring.adapter.jetty :as jetty]
@@ -31,86 +32,7 @@
   (clojure.string/split s (re-pattern r)))
 
 
-(def data [{:id 1 :left {:region "Europe", :country"Spain", :countryCode"ESP"},
-            :middle {:title "ESP-Diagnostic Trade Integration Study - Espain",
-                     :description "The document analyzes the current economic situation and the determinants of poverty in Angola, and it outlines policy actions in ten main areas of intervention: 1) probation; 2) demining; 3) food security and rural development; 4) HIV/AIDS; 5) Education; 6) Health; 7) Basic infrastructures; 8) professional training and employment; 9) governance; 10) macroeconomic governance. \n
-The DTIS provides an overview of the current economic situation in Angola and of the main issues regarding poverty and trade. It analyses the key problems affecting infrastructures, trade regime and institutions, commercial barriers, trade facilitation and private sector development. \n
-The Programme of Cooperation is aligned with the Common Country Programme Document, the National Strategy for Development and Integration 2007-2013 and the Millennium Development Goals. Hence, the goal of the Programme is to promote fair and sustainable development, social inclusion, respect of international standards and obligations in light of the integration of Albania into the European Union. Specific expected outcomes are identified within four main areas of intervention: governance and rule of law, economy and environment, regional and local development, inclusive and social policy.",
-                     :sectors["Coffee", "Cashew","Farming" , "Lorem", "sector1", "sector2", "sector3", "sector4", "sector5", "sector6", "sector7", "sector8","Coffee", "Cashew","Farming" , "Lorem", "sector1", "sector2", "sector3", "sector4", "sector5", "sector6", "sector7", "sector8"]
-                     },
-            :right {:type "UNAAF",:year 2003, :implementationPeriod "2007-2010",:lastUpdate"Thu May 28 2015"}}
-           {:id 2 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2005, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 3 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2006, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 4 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 5 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 6 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 7 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 8 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 9 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 10 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
-           {:id 11 :left {:region "Africa", :country"Benin", :countryCode"BEN"},
-            :middle {:title "Diagnostic Trade Integration Study - Benin",
-                     :description "Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism,Agro-Processing Industry, Cashew, Cotton, Fisheries, Pineapple, Shea, Shrimp Farming,Tourism", :sectors["Coffee", "Cashew","Farming" , "Lorem"]
-                     },
-            :right {:type "UNAAF",
-                    :year 2007, :implementationPeriod"2008-2012",:lastUpdate"Fry Jul 13 2012"}
-            }
 
-           ])
 
 
 (defresource documents
@@ -122,12 +44,19 @@ The Programme of Cooperation is aligned with the Common Country Programme Docume
                      (assoc-in [:headers "Access-Control-Allow-Headers"] "Origin, X-Requested-With, Content-Type, Accept")))
   :handle-ok (fn [{{qs :query-string} :request :as ctx}]
 
-               (clojure.pprint/pprint (reduce (fn [c [k v]] (assoc c k v)) {} (map #(split % "=") (split qs "&"))))
-                data
+               (let [params (reduce (fn [c [k v]] (assoc c (keyword k) v)) {} (map #(split % "=") (split qs "&")))
+                     data-sort (sort-by (apply comp (map keyword (split (:sort params) " "))) data)
+                     data-sort-ord (if (= (:order params) "desc")   (reverse data-sort) data-sort)
+                     ]
+                 (clojure.pprint/pprint params)
 
+                 {:total (count data) :rows  (take (Integer. (:limit params)) (drop (Integer. (:offset params)) data-sort-ord))}
+                 )
 )
   :allowed-methods [:get :post :options])
 ;;ring-response
+(Integer. "3")
+(take 2(drop 5 (range 0 10)))
 (def handler
   (make-handler ["/" {"foo" foo
                       "documents" documents

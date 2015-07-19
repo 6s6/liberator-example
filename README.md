@@ -13,8 +13,9 @@ $ lein repl
 
  (use 'ring.adapter.jetty)
  (use 'liberator-example.core)
- (def s (run-jetty handler))
 
+ (def s (run-jetty handler {:port 3003 :join? false}))
+ (.stop s)
 ```
 OR
 `lein ring server-headless 3003 &`
