@@ -33,8 +33,6 @@
 
 
 
-
-
 (defresource documents
   :available-media-types ["application/json"]
   :as-response (fn [d ctx]
@@ -45,7 +43,7 @@
   :handle-ok (fn [{{qs :query-string} :request :as ctx}]
 
                (let [params (reduce (fn [c [k v]] (assoc c (keyword k) v)) {} (map #(split % "=") (split qs "&")))
-                     data-sort (sort-by (apply comp (map keyword (split (:sort params) " "))) data)
+                     data-sort (sort-by (apply comp (map keyword (split (:sort params) " "))) data )
                      data-sort-ord (if (= (:order params) "desc")   (reverse data-sort) data-sort)
                      ]
                  (clojure.pprint/pprint params)
