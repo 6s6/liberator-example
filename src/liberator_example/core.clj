@@ -76,3 +76,12 @@
          => "/foo2/item1"
          curl -v -H "Accept: text/html" http://localhost:3000/foo2/item1
   )
+
+
+
+(defn init []
+  handler
+
+  )
+(defn destroy []
+ )

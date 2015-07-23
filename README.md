@@ -20,6 +20,13 @@ $ lein repl
 OR
 `lein ring server-headless 3003 &`
 
+update version 
+
+liberator-example-0.1.0-SNAPSHOT-standalone.war
+;; uncomment :aot :all in project.clj to deploy 
+lein clean && lein ring uberwar && unzip target/liberator-example-0.1.0-SNAPSHOT-standalone.war -d target/war && cp appengine-web.xml target/war/WEB-INF/ && appcfg.sh --oauth2 update target/war/
+
+
 ## License
 
 Copyright © 2015 FIXME
