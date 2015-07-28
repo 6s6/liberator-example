@@ -2,8 +2,11 @@
 
 (def r (take 100 (cycle [true false false true])))
 
-(defn more-checks [] (reduce  (fn [ c a] (assoc c (keyword a) (rand-nth r)))  {} ["ldc", "lldc", "environment", "gender", "poverty_reduction", "youth", "export_strategy", "trade_focus", "trade_facilitation", "trade_finance", "trade_information", "trade_promotion", "quality", "tvet", "regional", "regional_integration", "action_plan", "nec", "allocated_resources", "country_owned", "itc", "participatory"]))
+(defn more-checks [] (reduce  (fn [ c a] (assoc c (keyword a) {:title  a :value(rand-nth r)}))  {} ["ldc", "lldc", "sids", "pcc", "environment", "gender", "poverty_reduction", "youth", "export_strategy", "trade_focus", "trade_facilitation", "trade_finance", "trade_information", "trade_promotion", "quality", "tvet", "regional", "regional_integration", "all_theme", "action_plan", "nec", "allocated_resources", "country_owned", "itc", "participatory", "all_process"]))
 
+
+
+(more-checks)
 
 (def data
   (->>  [{:left {:region "Africa", :country"Uganda", :countryCode"UGA"},
